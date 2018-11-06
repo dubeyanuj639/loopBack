@@ -1,0 +1,126 @@
+{
+  "name": "student",
+  "plural": "students",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "studentId": {
+      "type": "number",
+      "required": true,
+      "unique": true
+    },
+    "studentName": {
+      "type": "string",
+      "required": true
+    },
+    "fatherName": {
+      "type": "string",
+      "required": true
+    },
+    "motherName": {
+      "type": "string",
+      "required": true
+    },
+    "dob": {
+      "type": "date"
+    },
+    "contact": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+    "registration": {
+      "accepts": [
+        {
+          "arg": "studentId",
+          "type": "number",
+          "required": true,
+          "description": "studentId that is unique to each student"
+        },
+        {
+          "arg": "studentName",
+          "type": "string",
+          "required": true,
+          "description": "studentName"
+        },
+        {
+          "arg": "fatherName",
+          "type": "string",
+          "required": true,
+          "description": "Student's fatherName"
+        },
+        {
+          "arg": "motherName",
+          "type": "string",
+          "required": true,
+          "description": "student mother Name"
+        },
+        {
+          "arg": "contact",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "arg": "password",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "arg": "data",
+          "type": "object",
+          "root": false,
+          "description": ""
+        }
+      ],
+      "description": "this is student registration page after fill this student can access the all features.",
+      "http": [
+        {
+          "path": "/register",
+          "verb": "post"
+        }
+      ]
+    },
+    "signIn": {
+      "accepts": [
+        {
+          "arg": "studentId",
+          "type": "number",
+          "required": false,
+          "description": "this is unique SO easily identify which user is to be come."
+        },
+        {
+          "arg": "password",
+          "type": "string",
+          "required": true,
+          "description": "Secure Signature"
+        }
+      ],
+      "returns": [
+        {
+          "arg": "data",
+          "type": "object",
+          "root": false,
+          "description": ""
+        }
+      ],
+      "description": "This method for student SignIn ",
+      "http": [
+        {
+          "path": "/signIn",
+          "verb": "post"
+        }
+      ]
+    }
+  }
+}
