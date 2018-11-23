@@ -38,5 +38,9 @@
   "student": {
     "dataSource": "student",
     "public": true
+  },
+  "company": {
+    "dataSource": "student",
+    "public": true
   }
 }

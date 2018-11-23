@@ -33,7 +33,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "company": {
+      "type": "hasMany",
+      "model": "company",
+      "foreignKey": "st"
+    }
+  },
   "acls": [],
   "methods": {
     "registration": {
@@ -118,6 +124,31 @@
       "http": [
         {
           "path": "/signIn",
+          "verb": "post"
+        }
+      ]
+    },
+    "getStudentList": {
+      "accepts": [
+        {
+          "arg": "pageNumber",
+          "type": "number",
+          "required": false,
+          "description": "this argument for pagination."
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "Get all students",
+      "http": [
+        {
+          "path": "/getStudentList",
           "verb": "post"
         }
       ]

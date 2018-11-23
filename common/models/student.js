@@ -25,15 +25,31 @@ module.exports = function (student) {
     };
 
     /**
+ * Get all student.......
+ * @param {Function(Error, object)} callback
+ *  @param {number} pageNumber for pagination
+ */
+    student.getStudentList = function (pageNumber, callback) {
+        var pageNo = pageNumber || 0   //this variable take for pagination .....
+        var result;
+        // TODO
+        student.find({ limit: 10, skip: pageNo * 10 }, (err, result) => {
+            console.log("err or result ==>>", err, result, pageNumber)
+            callback(null, result);
+        })
+    };
+
+
+    /**
  * This method for student SignIn 
  * @param {number} studentId this is unique SO easily identify which user is to be come.
  * @param {string} password Secure Signature
  * @param {Function(Error)} callback
  */
-    student.signIn = function (studentId, password,callback) {
-        student.find({ where: { studentId: studentId }}).then(data => {
+    student.signIn = function (studentId, password, callback) {
+        student.find({ where: { studentId: studentId } }).then(data => {
             console.log("data==>", data)
-            callback(null,data)
+            callback(null, data)
         }).catch(err => {
             console.log("error =>", err)
             service.responseHandler(400, "Error", err)

@@ -108,7 +108,7 @@ exports.sendEmail = (email, subject, message, link, cc, bcc, callback) => {
     transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: '******',
+            user: '',
             pass: '******'
         }
     })

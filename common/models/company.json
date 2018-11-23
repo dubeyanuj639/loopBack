@@ -1,0 +1,26 @@
+{
+  "name": "company",
+  "plural": "companies",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "companyName": {
+      "type": "string"
+    },
+    "companyAddress": {
+      "type": "string"
+    },
+    "workingAreas": {
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
