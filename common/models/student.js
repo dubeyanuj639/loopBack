@@ -11,14 +11,24 @@ module.exports = function (student) {
      */
 
     student.registration = function (studentId, studentName, fatherName, motherName, contact, password, callback) {
-        service.bcrypt(password, (errBcr, successBcr) => {
+       service.bcrypt(password, (errBcr, successBcr) => {
             if (errBcr) console.log(errBcr)
             else {
                 var query = { where: { studentId: studentId } };
                 var obj = { studentId: studentId, studentName: studentName, fatherName: fatherName, motherName: motherName, contact: contact, password: successBcr }
-                student.findOrCreate(query, obj, (err, data) => {
-                    console.log("err,result ===>>", err, data)
-                    callback(null, data);
+                student.findOne(query,(err,result)=>{
+                    if(err){
+                          callback({status: 400, message: 'Internal Server Error.'});
+                    }
+                    else if(result){
+                        callback({status: 404, message: 'Student already exist'});
+                        }
+                    else{
+                        student.findOrCreate(query, obj, (err, data) => {
+                            console.log("err,result @@@@@@===>>", err, data)
+                            callback(null,{status:200,message:"Success"});
+                        }) 
+                    }
                 })
             }
         })
