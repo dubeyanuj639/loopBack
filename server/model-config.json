@@ -42,5 +42,9 @@
   "company": {
     "dataSource": "student",
     "public": true
+  },
+  "teacher": {
+    "dataSource": "student",
+    "public": true
   }
 }

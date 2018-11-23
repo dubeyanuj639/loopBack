@@ -1,0 +1,30 @@
+{
+  "name": "teacher",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "teacherName": {
+      "type": "string",
+      "required": true
+    },
+    "teacherSubject": {
+      "type": "string",
+      "required": true
+    },
+    "teacherSalary": {
+      "type": "number"
+    },
+    "teacherCourseToTeach": {
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
