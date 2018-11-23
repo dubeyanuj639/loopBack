@@ -24,9 +24,7 @@ exports.responseHandler = (res, responseCode, responseMessage, data) => {
 },
 
     exports.imageUploadToCloudinary = (imageB64, callback) => {
-        console.log(imageB64)
         cloudinary.v2.uploader.upload(imageB64, (err, result) => {
-            console.log("===>>>>in cloudinary function =====>>>", err, result);
             callback(result.url);
         })
     },
@@ -34,7 +32,6 @@ exports.responseHandler = (res, responseCode, responseMessage, data) => {
 
 
     exports.crypt = function (divPass) {
-        console.log("calling function divPass====", divPass)
         const secret = 'Mobiloitte1';
         const hash = crypto.createHmac('sha256', secret)
             .update(divPass)
@@ -44,13 +41,10 @@ exports.responseHandler = (res, responseCode, responseMessage, data) => {
     };
 
 exports.bcrypt = function (divPass, cb) {
-    // console.log("calling bcrypt funciton ====")
     bcrypt.genSalt(saltRounds, function (err, salt) {
-        // console.log("calling bcrypt funciton 2 ====")
         bcrypt.hash(divPass, salt, function (err, hashPassword) {
               console.log("errrr   hash  ==>>",err,hashPassword)
             cb(null, hashPassword)
-            // return hashPassword;
         });
     });
 
@@ -58,13 +52,11 @@ exports.bcrypt = function (divPass, cb) {
 };
 
 exports.bcryptVerify = (password, dbPassword, cb) => {
-    console.log("=======in bcypt verify", password, dbPassword)
     bcrypt.compare(password, dbPassword, (err, res) => {
         if (err) {
             return commonFile.responseHandler(res, 400, "Invalid Credentials.")
         }
         else {
-            console.log("null , response======== verify  password by bcrypt function =====>>>>", null, res)
             cb(null, res)
         }
     });
@@ -72,27 +64,20 @@ exports.bcryptVerify = (password, dbPassword, cb) => {
 
 
 exports.jwt = function (body, cb) {
-    console.log("calling jwt function ====", body)
     let token = jwt.sign(body, config.jwtSecretKey)
-    console.log("token====", token)
     cb(null, token)
 
 };
 
 exports.jwtVerify = (req, res, next) => {
-    console.log("req.headers========", req.headers)
     if (req.headers.jwt == "null" || req.headers.jwt == "" || req.headers.jwt == "undefined" || req.headers.jwt == null || req.headers.jwt == undefined) {
-        console.log("token missing")
         return commonFile.responseHandler(res, 400, "Token Missing")
     }
 
     jwt.verify(req.headers.jwt, config.jwtSecretKey, function (err, decoded) {
         if (err) {
-            console.log("Invalid token")
             return commonFile.responseHandler(res, 400, "Token Invalid", err)
         } else {
-            console.log("decode", decoded)
-
             next();
         }
     });
@@ -123,12 +108,10 @@ exports.sendEmail = (email, subject, message, link, cc, bcc, callback) => {
         bcc: bcc
     }
     transporter.sendMail(messageObj, (err, info) => {
-        console.log("in send mail second console-----", err, info)
         if (err) {
-            console.log("Error occured", err)
+         
             callback(null);
         } else {
-            console.log("Mail sent")
             callback(null, info)
         }
     })
@@ -137,7 +120,6 @@ exports.sendEmail = (email, subject, message, link, cc, bcc, callback) => {
 exports.balanceCal = async (contract, ownerAddress) => {
     try {
         var balance = await contract.methods.balanceOf(ownerAddress).call();
-        console.log("@@@@@@@@@@@@@", balance);
         return balance;
     } catch (err) {
         throw err;
